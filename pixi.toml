@@ -9,7 +9,8 @@ name = "slotmap"
 version = "0.1.0"
 
 [package.build]
-backend = { name = "pixi-build-mojo", version = "0.*", channels = [
+backend = { name = "pixi-build-mojo", version = "0.*"
+channels = [
     "https://prefix.dev/pixi-build-backends",
     "https://prefix.dev/conda-forge",
 ]}
@@ -32,3 +33,4 @@ mojo = ">=0.26.1.0.dev2025112205,<0.27"
 
 [dependencies]
 mojo = ">=0.26.1.0.dev2025112205,<0.27"
+slotmap = {path = "."}
