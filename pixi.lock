@@ -51,6 +51,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zeromq-4.3.5-h888dc83_9.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-3.23.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-h6491c7d_2.conda
+      - conda: .
 packages:
 - conda: https://conda.anaconda.org/conda-forge/noarch/_python_abi3_support-1.0-hd8ed1ab_2.conda
   sha256: a3967b937b9abf0f2a99f3173fa4630293979bd1644709d89580e7c62a544661
@@ -436,6 +437,16 @@ packages:
   license_family: MIT
   size: 18455
   timestamp: 1753199211006
+- conda: .
+  name: slotmap
+  version: 0.1.0
+  build: hbf21a9e_0
+  subdir: osx-arm64
+  depends:
+  - mojo >=0.26.1.0.dev2025112205,<0.27
+  input:
+    hash: 0ed791118c08c56eaf49c0a914346495caeabbfe135daab3a29248f0ee3c68db
+    globs: []
 - conda: https://conda.anaconda.org/conda-forge/osx-arm64/tk-8.6.13-h892fb3f_3.conda
   sha256: ad0c67cb03c163a109820dc9ecf77faf6ec7150e942d1e8bb13e5d39dc058ab7
   md5: a73d54a5abba6543cb2f0af1bfbd6851

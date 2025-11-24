@@ -1,15 +1,22 @@
+from hashlib import Hasher
+
+
 struct DefaultTag:
     pass
 
 
 @fieldwise_init
 @register_passable("trivial")
-struct Key[Tag: AnyType = DefaultTag](Equatable):
+struct Key[Tag: AnyType = DefaultTag](Equatable, Hashable):
     var idx: UInt32
     var version: UInt32
 
     fn __eq__(self, other: Self) -> Bool:
         return self.idx == other.idx and self.version == other.version
+
+    fn __hash__[H: Hasher](self, mut hasher: H):
+        hasher._update_with_simd(self.idx)
+        hasher._update_with_simd(self.version)
 
 
 @fieldwise_init

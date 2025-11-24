@@ -13,7 +13,7 @@ backend = { name = "pixi-build-mojo", version = "0.*" }
 
 [tasks]
 test = "bash run_tests.sh test"
-format = "mojo format slotmap"
+format = "mojo format slotmap test"
 
 [package.host-dependencies]
 mojo = ">=0.26.1.0.dev2025112205,<0.27"

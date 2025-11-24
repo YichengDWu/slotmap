@@ -7,6 +7,7 @@ from testing import (
     TestSuite,
 )
 
+
 struct MyTag:
     pass
 
@@ -15,6 +16,7 @@ def test_construction():
     _ = DenseSlotMap[Int]()
     _ = DenseSlotMap[Int, MyTag]()
 
+
 def test_basic():
     var sm: DenseSlotMap[Int] = {}
     var k1 = sm.insert(10)
@@ -22,6 +24,7 @@ def test_basic():
 
     assert_equal(sm[k1], 10)
     assert_equal(sm[k2], 20)
+
 
 def test_bool_conversion():
     var sm: DenseSlotMap[Int] = {}
@@ -35,6 +38,7 @@ def test_bool_conversion():
     _ = sm.pop(k2)
     assert_false(sm)
 
+
 def test_compact():
     var sm: DenseSlotMap[String] = {}
     var keys = List[Key]()
@@ -43,6 +47,7 @@ def test_compact():
     for key in keys:
         _ = sm.pop(key)
     assert_equal(len(sm.values), 0)
+
 
 def test_iter():
     var sm: DenseSlotMap[Int] = {}
@@ -56,6 +61,7 @@ def test_iter():
         actual.append(value)
 
     assert_equal(actual, expected)
+
 
 def test_iter_mut():
     var sm: DenseSlotMap[Int] = {}
@@ -75,6 +81,7 @@ def test_iter_mut():
 
     assert_equal(actual, expected)
 
+
 def test_copy():
     var orig: DenseSlotMap[String] = {}
     var k1 = orig.insert("a")
@@ -85,7 +92,8 @@ def test_copy():
     copy[k1] = "b"
     assert_equal(orig[k1], "a")
     assert_equal(copy[k1], "b")
-    
+
+
 def test_clear():
     var sm: DenseSlotMap[Int] = {}
     var k1 = sm.insert(1)
@@ -98,6 +106,18 @@ def test_clear():
     _ = sm.insert(2)
     assert_false(k1 in sm)
     assert_false(k2 in sm)
+
+
+def test_hash():
+    var sm: DenseSlotMap[Int] = {}
+    var k1 = sm.insert(100)
+    var k2 = sm.insert(200)
+
+    var hash1 = hash(k1)
+    var hash2 = hash(k2)
+
+    assert_true(hash1 != hash2)
+
 
 def main():
     TestSuite.discover_tests[__functions_in_module()]().run()
