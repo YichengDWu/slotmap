@@ -19,9 +19,6 @@ channels = [
 test = "bash run_tests.sh test"
 format = "mojo format slotmap"
 
-[package.build.configuration.pkg]
-name = "slotmap"
-
 [package.host-dependencies]
 mojo = ">=0.26.1.0.dev2025112205,<0.27"
 
