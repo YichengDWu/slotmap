@@ -1,6 +1,6 @@
 [workspace]
+authors = ["Yicheng Wu <yichengdwu@outlook.com>"]
 channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
-name = "slotmap"
 platforms = ["osx-arm64"]
 preview = ["pixi-build"]
 
