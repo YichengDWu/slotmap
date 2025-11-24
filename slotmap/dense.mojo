@@ -8,25 +8,25 @@ struct DefaultTag:
 @fieldwise_init
 @register_passable("trivial")
 struct Key[Tag: AnyType = DefaultTag](Equatable, Hashable):
-    var idx: UInt32
-    var version: UInt32
+    var idx: UInt
+    var version: UInt
 
     fn __eq__(self, other: Self) -> Bool:
         return self.idx == other.idx and self.version == other.version
 
     fn __hash__[H: Hasher](self, mut hasher: H):
-        hasher._update_with_simd(self.idx)
-        hasher._update_with_simd(self.version)
+        hasher.update(self.idx)
+        hasher.update(self.version)
 
 
 @fieldwise_init
 @register_passable("trivial")
 struct Slot:
     # Fields
-    var idx_or_free: UInt32
+    var idx_or_free: UInt
     """If the slot is occupied, this is the index into the values array.
         If the slot is free, this is the index of the next free slot."""
-    var version: UInt32
+    var version: UInt
     """If the version is odd, the slot is occupied.
         If the version is even, the slot is free."""
 
@@ -148,7 +148,7 @@ struct DenseSlotMap[V: Copyable & Movable, Tag: AnyType = DefaultTag](
     """The actual values stored in the slot map."""
     var slots: List[Slot]
     """The sparse array of slots. Maps keys to indices in the values array."""
-    var free_head: UInt32
+    var free_head: UInt
     """The index of the first free slot in the slots array."""
 
     comptime IteratorType[
@@ -177,9 +177,9 @@ struct DenseSlotMap[V: Copyable & Movable, Tag: AnyType = DefaultTag](
 
     fn insert(mut self, var value: Self.V) -> Key[Self.Tag]:
         self.values.append(value^)
-        var value_idx = UInt32(len(self.values) - 1)
+        var value_idx = UInt(len(self.values) - 1)
 
-        if self.free_head < len(self.slots):
+        if self.free_head < UInt(len(self.slots)):
             # Reuse a free slot
             var slot_idx = self.free_head
             var slot = self.slots[slot_idx]
@@ -196,8 +196,8 @@ struct DenseSlotMap[V: Copyable & Movable, Tag: AnyType = DefaultTag](
             return key
         else:
             # Create a new slot
-            var slot_idx = UInt32(len(self.slots))
-            var version: UInt32 = 1
+            var slot_idx = UInt(len(self.slots))
+            var version: UInt = 1
             self.slots.append(Slot(value_idx, version))
 
             self.free_head = slot_idx + 1
@@ -285,4 +285,4 @@ struct DenseSlotMap[V: Copyable & Movable, Tag: AnyType = DefaultTag](
             var current_version = self.slots[i].version
             if current_version % 2 == 1:
                 self.slots[i].version = current_version + 1
-            self.slots[i].idx_or_free = UInt32(i + 1)
+            self.slots[i].idx_or_free = UInt(i + 1)
