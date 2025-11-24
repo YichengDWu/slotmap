@@ -1,0 +1,34 @@
+[workspace]
+channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
+name = "slotmap"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+[package]
+name = "slotmap"
+version = "0.1.0"
+
+[package.build]
+backend = { name = "pixi-build-mojo", version = "0.*", channels = [
+    "https://prefix.dev/pixi-build-backends",
+    "https://prefix.dev/conda-forge",
+]}
+
+[tasks]
+test = "bash run_tests.sh test"
+format = "mojo format slotmap"
+
+[package.build.configuration.pkg]
+name = "slotmap"
+
+[package.host-dependencies]
+mojo = ">=0.26.1.0.dev2025112205,<0.27"
+
+[package.build-dependencies]
+mojo = ">=0.26.1.0.dev2025112205,<0.27"
+
+[package.run-dependencies]
+mojo = ">=0.26.1.0.dev2025112205,<0.27"
+
+[dependencies]
+mojo = ">=0.26.1.0.dev2025112205,<0.27"
